@@ -3,7 +3,7 @@ services:
   business:
     build:
       context: ..
-      dockerfile: Business/Dockerfile
+      dockerfile: GameLibrary/Dockerfile
     image: magnusandersen/business-app:latest
     restart: always
     environment:
@@ -12,6 +12,7 @@ services:
       - app-database
     ports:
       - 5001:8080
+
 
   app-database:
     image: mysql
