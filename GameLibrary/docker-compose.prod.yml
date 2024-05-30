@@ -4,5 +4,3 @@ services:
   businessprod:
     image: magnusandersen/business-app:delivery
 
-  businessprodfrontend:
-    image: magnusandersen/business-app:frontenddelivery
