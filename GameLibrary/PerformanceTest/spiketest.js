@@ -10,5 +10,7 @@ export const options = {
 };
 
 export default () => {
-    const res = http.get('http://localhost:5031/swagger/index.html')
-}
+    const res = http.get('http://business:5031/swagger/index.html');
+    check(res, { 'status is 200': (r) => r.status === 200 });
+    sleep(1);
+};
