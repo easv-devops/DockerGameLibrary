@@ -1,4 +1,4 @@
-USE GameLib;
+use GameLib;
 
 CREATE TABLE Game (
                       GameId VARCHAR(50) PRIMARY KEY,
