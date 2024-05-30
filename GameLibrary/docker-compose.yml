@@ -24,7 +24,6 @@ services:
       MYSQL_DATABASE: GameLib
     ports:
       - 63306:3306
-    command: --lower_case_table_names=1
 
   flyway:
     image: flyway/flyway:10
