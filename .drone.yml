@@ -68,7 +68,7 @@ steps:
         from_secret: DockerUsername
       password:
         from_secret: DockerPassword
-      context: GameLibrary
+      context: .
       dockerfile: GameLibrary/Dockerfile
       repo: magnusandersen/business-app
       tags:
