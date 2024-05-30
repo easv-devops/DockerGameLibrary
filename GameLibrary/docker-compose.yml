@@ -2,8 +2,6 @@ version: '3.8'
 services:
   business:
     build:
-      context: ..
-      dockerfile: GameLibrary/Dockerfile
     image: magnusandersen/business-app:latest
     restart: always
     environment:
