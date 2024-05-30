@@ -37,20 +37,6 @@ steps:
       tags: 
         - latest
 
-  - name: publish web
-    image: plugins/docker
-    settings:
-      username:
-        from_secret: DockerUsername
-      password:
-        from_secret: DockerPassword
-      context: .
-      dockerfile: GameLibraryFrontend/Dockerfile
-      repo: magnusandersen/business-app
-      tags: 
-        - frontend
-
-
 
   - name: trigger update
     image: curlimages/curl
@@ -59,7 +45,6 @@ steps:
       - sleep 10
     depends_on:
       - publish api
-      - publish web
 
 
   - name: update database
