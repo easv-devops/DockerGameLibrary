@@ -44,8 +44,8 @@ steps:
         from_secret: DockerUsername
       password:
         from_secret: DockerPassword
-      context: GameLibraryFrontend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: GameLibraryFrontend/Dockerfile
       repo: magnusandersen/business-app
       tags: 
         - frontend
