@@ -11,7 +11,7 @@ steps:
       SONARKEY:
         from_secret: SonarCubeKey
     commands:
-      - dotnet sonarscanner begin /k:"$SONARKEY" /d:sonar.host.url="http://sonar.setgo.dk:9000"  /d:sonar.token="$SONARSECRET"
+      - dotnet sonarscanner begin /k:"$SONARKEY" /d:sonar.host.url="http://sonar.setgo.dk:9000" /d:sonar.token="$SONARSECRET"
       - dotnet build
       - dotnet sonarscanner end /d:sonar.token="$SONARSECRET"
 
@@ -95,7 +95,7 @@ steps:
       tags:
         - delivery
 
-- name: release web
+  - name: release web
     image: plugins/docker
     settings:
       username:
@@ -107,7 +107,7 @@ steps:
       repo: magnusandersen/business-app
       tags: 
         - frontenddelivery        
-        
+
   - name: trigger update
     image: curlimages/curl
     commands:
