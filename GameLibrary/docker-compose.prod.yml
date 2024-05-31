@@ -4,3 +4,13 @@ services:
   businessprod:
     image: magnusandersen/business-app:delivery
 
+  app-database:
+      image: mysql
+      restart: always
+      volumes:
+        - ./db/data:/var/lib/mysql
+      environment:
+        MYSQL_ROOT_PASSWORD: MY_S€cr€t_P@ssw0rD
+        MYSQL_DATABASE: GameLib
+      ports:
+        - 63306:3306
