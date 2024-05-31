@@ -4,7 +4,7 @@ services:
   businessprod:
     image: magnusandersen/business-app:delivery
 
-  app-database:
+  app-database-2:
       image: mysql
       restart: always
       volumes:
