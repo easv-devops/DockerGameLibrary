@@ -3,6 +3,8 @@ version: "3.9"
 services:
   businessprod:
     image: magnusandersen/business-app:delivery
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
 
   app-database-2:
       image: mysql
