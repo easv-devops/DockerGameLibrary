@@ -10,7 +10,7 @@ export const options = {
 };
 
 export default () => {
-    const res = http.get('http://business:5031/swagger/index.html');
+    const res = http.get('http://45.90.123.95:5001/');
     check(res, { 'status is 200': (r) => r.status === 200 });
     sleep(1);
 };
