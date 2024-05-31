@@ -13,16 +13,6 @@ services:
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
 
-  businessfront:
-    image: magnusandersen/business-app:frontend
-    ports:
-      - "5002:8080"
-    depends_on:
-      - mariadb
-    labels:
-      - "com.centurylinklabs.watchtower.enable=true"
-
-
   app-database:
     image: mysql
     restart: always
