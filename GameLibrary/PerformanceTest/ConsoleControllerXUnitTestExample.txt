@@ -1,0 +1,93 @@
+using Xunit;
+using Moq;
+using Microsoft.AspNetCore.Mvc;
+using MySql.Data.MySqlClient;
+using GameLibraryAPI.Controllers;
+using GameLibraryAPI.Data;
+using GameLibraryAPI.Models; // Updated namespace
+using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
+using Console = GameLibraryAPI.Models.Console;
+
+namespace GameLibraryAPI.Tests
+{
+    public class ConsoleControllerTests
+    {
+        [Fact]
+        public void GetConsoles_Returns_OkResult_With_Consoles()
+        {
+            
+            var mockDb = new Mock<DatabaseActions>();
+            mockDb.Setup(db => db.getDBString()).Returns("fake_connection_string");
+
+            var mockConnection = new Mock<MySqlConnection>();
+            mockConnection.Setup(c => c.State).Returns(System.Data.ConnectionState.Open);
+
+            var mockCommand = new Mock<MySqlCommand>();
+            mockCommand.Setup(cmd => cmd.ExecuteReader()).Returns(MockDataReader());
+
+            mockConnection.Setup(c => c.CreateCommand()).Returns(mockCommand.Object);
+
+            var controller = new ConsoleController(mockDb.Object);
+            controller.ControllerContext = new ControllerContext();
+            controller.ControllerContext.HttpContext = new DefaultHttpContext();
+
+            
+            var result = controller.GetConsoles();
+
+            
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var consoles = Assert.IsType<List<Console>>(okResult.Value);
+            Assert.Equal(0, consoles.Count); 
+        }
+
+        [Fact]
+        public void GetConsole_Returns_OkResult_With_Console()
+        {
+            
+            var mockDb = new Mock<DatabaseActions>();
+            mockDb.Setup(db => db.getDBString()).Returns("fake_connection_string");
+
+            var mockConnection = new Mock<MySqlConnection>();
+            mockConnection.Setup(c => c.State).Returns(System.Data.ConnectionState.Open);
+
+            var mockCommand = new Mock<MySqlCommand>();
+            mockCommand.Setup(cmd => cmd.ExecuteReader()).Returns(MockDataReader());
+
+            mockConnection.Setup(c => c.CreateCommand()).Returns(mockCommand.Object);
+
+            var controller = new ConsoleController(mockDb.Object);
+            controller.ControllerContext = new ControllerContext();
+            controller.ControllerContext.HttpContext = new DefaultHttpContext();
+
+            
+            var result = controller.GetConsole(Guid.NewGuid());
+
+            
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var consoles = Assert.IsType<List<Console>>(okResult.Value);
+            Assert.Single(consoles); 
+        }
+
+        
+        private MySqlDataReader MockDataReader()
+        {
+            var consoles = new List<Console>
+            {
+                new Console { consoleId = Guid.NewGuid(), consoleName = "Xbox" },
+                new Console { consoleId = Guid.NewGuid(), consoleName = "PlayStation" }
+            };
+
+            var mockDataReader = new Mock<MySqlDataReader>();
+            mockDataReader.SetupSequence(m => m.Read())
+                          .Returns(true)
+                          .Returns(true)
+                          .Returns(false);
+            mockDataReader.Setup(m => m["ConsoleId"]).Returns(() => consoles[mockDataReader.Invocations.Count - 1].consoleId.ToString());
+            mockDataReader.Setup(m => m["ConsoleName"]).Returns(() => consoles[mockDataReader.Invocations.Count - 1].consoleName);
+
+            return mockDataReader.Object;
+        }
+    }
+}
